@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NetMedia</string>
+    <string name="hello">Welcome:)</string>
 </resources>
