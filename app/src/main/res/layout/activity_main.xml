@@ -14,6 +14,7 @@
         android:layout_height="@dimen/posts_avatar_size"
         android:layout_marginBottom="@dimen/common_spacing"
         android:contentDescription="@string/description_post_author_avatar"
+        app:layout_constraintBottom_toBottomOf="@id/barrier"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@sample/posts_avatars" />
@@ -24,9 +25,15 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/common_spacing"
         android:layout_marginEnd="@dimen/common_spacing"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:ellipsize="end"
+        android:singleLine="true"
+        app:
+        app:layout_constraintBottom_toTopOf="@id/published"
+        app:layout_constraintEnd_toStartOf="@id/menu"
         app:layout_constraintStart_toEndOf="@+id/avatar"
+        app:layout_constraintTop_toTop="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
         tools:text="@sample/posts.json/data/author" />
 
     <TextView
@@ -35,27 +42,52 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/common_spacing"
         android:layout_marginEnd="@dimen/common_spacing"
+        android:layout_marginBottom="@dimen/common_spacing"
+        app:layout_constraintBottom_toBottomOf="@id/barrier"
         app:layout_constraintEnd_toEndOf="parent"
-
+        app:layout_constraintEnd_toStartOf="@id/menu"
         app:layout_constraintStart_toEndOf="@+id/avatar"
         app:layout_constraintTop_toBottomOf="@id/author"
         tools:text="@sample/posts.json/data/published" />
+
+    <ImageButton
+        android:id="@+id/menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/description_post_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/author"
+        app:srcCompat="@drawable/rounded_more_vert_24"
+        />
+
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="avatar,published"
+        app:constraint_referenced_ids="avatar,published,menu" />
+
     <TextView
         android:id="@+id/content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-       android:layout_marginTop="@dimen/common_spacing"
+        android:layout_marginTop="@dimen/common_spacing"
+        android:layout_marginBottom="@dimen/common_spacing"
+        android:autoLink="web"
+        app:layout_constraintBottom_toTopOf="@+id/barrier2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf= "@+id/barrier"
+        app:layout_constraintTop_toBottomOf="@+id/barrier"
+        tools:text="@sample/posts.json/data/content" />
 
-        tools:text = "@sample/posts.json/data/content"/>
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="content" />
+
 
     <TextView
         android:layout_width="wrap_content"
