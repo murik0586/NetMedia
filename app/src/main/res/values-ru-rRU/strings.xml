@@ -4,4 +4,5 @@
     <string name="hello" >Добро пожаловать:)</string>
     <string name="description_post_author_avatar">Аватар автора поста</string>
     <string name="description_post_menu">Меню поста</string>
+    <string name="description_post_likes_drawable">Лайки поста</string>
 </resources>

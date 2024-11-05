@@ -3,4 +3,5 @@
     <string name="hello">Welcome:)</string>
     <string name="description_post_author_avatar">Post author avatar</string>
     <string name="description_post_menu">Post menu</string>
+    <string name="description_post_likes_drawable">Post likes</string>
 </resources>
