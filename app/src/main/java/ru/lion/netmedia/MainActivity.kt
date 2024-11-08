@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         val post = Post(
             author = "Уроки Андроид разработки",
             data = "29 октября в 00:00",
@@ -46,9 +47,10 @@ class MainActivity : AppCompatActivity() {
                 likesCount.text = textCountLikes
 
             }
+
             share.setOnClickListener {
                 post.shareCount += 10
-                //share.setImageResource(R.drawable.baseline_active_share_24)
+                share.setImageResource(R.drawable.baseline_active_share_24)
                 shareCount.text = updateCounterDisplay(post.shareCount)
             }
         }
