@@ -6,7 +6,7 @@
       "authorAvatar": "@sample/posts_avatars",
       "published": "29 октября в 2:29",
       "content":  "Сегодня мы разбираем верстку Андроид, начнем с основ, и продвинемся глубже. Для начала мы пробуем создать простой вид приложения. Аккурат следуя принципу от простого к сложному! https://github.com/netology-code/and2-homeworks/tree/master/03_constraint_layout",
-      "likes": 100000000,
+      "likes": "1",
       "views": "9000000",
       "shape": "5000000"
     }
