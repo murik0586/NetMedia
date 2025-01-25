@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">NetMedia</string>
-    <string name="hello">Welcome:)</string>
-    <string name="description_post_author_avatar">Post author avatar</string>
-    <string name="description_post_menu">Post menu</string>
-    <string name="description_post_likes_drawable">Post likes</string>
+    <string name= "description_post_author_avatar" translatable="false"> Post author avatar</string>
+    <string name= "description_post_menu" translatable="false"> Post menu</string>
 </resources>
