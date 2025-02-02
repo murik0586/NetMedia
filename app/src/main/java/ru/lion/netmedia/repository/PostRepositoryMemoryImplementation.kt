@@ -15,7 +15,7 @@ class PostRepositoryMemoryImplementation : PostRepository {
         1100,
         10,
     )
-    val data = MutableLiveData(post)
+    private val data = MutableLiveData(post)
     override fun get(): LiveData<Post> = data
 
     override fun like() {
@@ -25,4 +25,16 @@ class PostRepositoryMemoryImplementation : PostRepository {
         )
         data.value = post
     }
+
+    override fun share() {
+        post = post.copy(shared = post.shared + 10)
+        data.value = post
+
+    }
+
+    override fun view() {
+        post = post.copy(views = post.views +1)
+        data.value = post
+    }
+
 }
