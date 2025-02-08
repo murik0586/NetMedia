@@ -7,9 +7,9 @@ import ru.lion.netmedia.repository.PostRepositoryMemoryImplementation
 class PostViewModel : ViewModel() {
     private val repository: PostRepository = PostRepositoryMemoryImplementation()
 
-    val data = repository.get()
+    val data = repository.getAll()
 
-    fun like() = repository.like()
-    fun share() = repository.share()
-    fun view() = repository.view()
+    fun like(id: Long) = repository.like(id)
+    fun share(id: Long) = repository.share(id)
+    fun view(id: Long) = repository.view(id)
 }
