@@ -11,17 +11,18 @@ import ru.lion.netmedia.viewModel.PostViewModel
 
 class MainActivity : AppCompatActivity() {
 
-
+    val viewModel by viewModels<PostViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         // Указываем LayoutManager для RecyclerView
         binding.list.layoutManager = LinearLayoutManager(this)
-        val viewModel by viewModels<PostViewModel>()
-        val adapter = PostAdapter {
-            viewModel.like(it.id)
-        }
+
+        val adapter = PostAdapter(
+            onLikeListener = { post -> viewModel.like(post.id) },
+            onShareListener = { post -> viewModel.share(post.id) }
+        )
         binding.list.adapter = adapter
         viewModel.data.observe(this) { posts ->
             adapter.submitList(posts)

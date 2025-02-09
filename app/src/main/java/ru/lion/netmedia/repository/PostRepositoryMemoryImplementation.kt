@@ -12,7 +12,7 @@ class PostRepositoryMemoryImplementation : PostRepository {
             "Уроки разработки - менторство! Присоединяйтесь к нам, покорим Андроид!",
             "25 января в 21:46",
             "Привет, разработчики! 🌟 Android-разработка — это не просто код, это целый мир возможностей. Каждый день мы создаём приложения, которые упрощают жизнь миллионов пользователей по всему миру. Хотите стать частью этой динамичной сферы? Тогда пора изучить Jetpack Compose, разобраться в MVVM и освоить Kotlin! Начните сегодня — завтра ваши приложения могут изменить мир! https://github.com/netology-code/and2-homeworks/tree/master/03_constraint_layout",
-            true,
+            false,
             10,
             1100,
             10
@@ -102,7 +102,7 @@ class PostRepositoryMemoryImplementation : PostRepository {
             "Топ ошибок начинающих Android-разработчиков",
             "26 января в 20:30",
             "❌ Писать весь код в Activity, ❌ Не использовать архитектурные паттерны, ❌ Игнорировать обработку ошибок, ❌ Не следить за памятью. Узнали себя? Время исправлять! 🚀",
-            true,
+            false,
             50,
             4000,
             35
@@ -115,17 +115,18 @@ class PostRepositoryMemoryImplementation : PostRepository {
     override fun like(id: Long) {
         posts = posts.map {
             if (it.id == id) {
-                if(it.likedByMe) {
-                it.copy(likedByMe = false, likes = it.likes - 1)
-                } else {it.copy(likedByMe = true, likes = it.likes + 1)}
-            } else it//TODO сделать увеличение лайков(может стоит создать отдельную функцию для вызова?
+                it.copy(
+                    likedByMe = !it.likedByMe,
+                    likes = if (it.likedByMe) it.likes - 1 else it.likes + 1
+                )
+            } else it
         }
         data.value = posts
     }
 
     override fun share(id: Long) {
         posts = posts.map {
-            if (it.id == id) it.copy(shared = it.shared + 10) else it
+            if (it.id == id) it.copy(shared = it.shared + 1) else it
         }
         data.value = posts
 
