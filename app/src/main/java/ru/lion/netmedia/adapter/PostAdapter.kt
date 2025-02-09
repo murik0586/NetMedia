@@ -9,7 +9,7 @@ import ru.lion.netmedia.databinding.CardPostBinding
 import ru.lion.netmedia.diffUtil.PostDiffCallback
 import ru.lion.netmedia.dto.Post
 import ru.lion.netmedia.utils.shortenNumber
-import ru.lion.netmedia.viewModel.PostViewModel
+
 
 typealias OnLikeListener = (post: Post) -> Unit
 

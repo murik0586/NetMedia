@@ -17,25 +17,21 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         // Указываем LayoutManager для RecyclerView
-        binding.list?.layoutManager = LinearLayoutManager(this)
+        binding.list.layoutManager = LinearLayoutManager(this)
         val viewModel by viewModels<PostViewModel>()
         val adapter = PostAdapter {
             viewModel.like(it.id)
         }
-        binding.list?.adapter = adapter
+        binding.list.adapter = adapter
         viewModel.data.observe(this) { posts ->
             adapter.submitList(posts)
-
-//.forEach { binding.container?.addView(it) }
-
-
         }
 
 
     }
 
-    override fun onStart() {
-        super.onStart()
-        // viewModel.view() TODO поправить
-    }
+//    override fun onStart() {
+//        super.onStart()
+//        // viewModel.view() TODO поправить
+//    }
 }

@@ -114,8 +114,11 @@ class PostRepositoryMemoryImplementation : PostRepository {
 
     override fun like(id: Long) {
         posts = posts.map {
-            if (it.id == id) it.copy(likedByMe = !it.likedByMe) else it//TODO сделать увеличение лайков(может стоит создать отдельную функцию для вызова?
-
+            if (it.id == id) {
+                if(it.likedByMe) {
+                it.copy(likedByMe = false, likes = it.likes - 1)
+                } else {it.copy(likedByMe = true, likes = it.likes + 1)}
+            } else it//TODO сделать увеличение лайков(может стоит создать отдельную функцию для вызова?
         }
         data.value = posts
     }
