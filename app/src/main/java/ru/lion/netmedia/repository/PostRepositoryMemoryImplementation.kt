@@ -133,9 +133,14 @@ class PostRepositoryMemoryImplementation : PostRepository {
     }
 
     override fun view(id: Long) {
-        posts = posts.map{
-            if(it.id==id) it.copy(views = it.views + 1) else it
+        posts = posts.map {
+            if (it.id == id) it.copy(views = it.views + 1) else it
         }
+        data.value = posts
+    }
+
+    override fun remove(id: Long) {
+        posts = posts.filter { it.id != id }
         data.value = posts
     }
 

@@ -13,16 +13,14 @@ class PostViewModel : ViewModel() {
     val data: LiveData<List<Post>> = repository.getAll()
 
 
+    fun like(id: Long) = repository.like(id)
 
-    fun like(id: Long) {
-        repository.like(id)
-    }
 
-    fun share(id: Long) {
-        repository.share(id)
-    }
+    fun share(id: Long) = repository.share(id)
 
-    fun view(id: Long) {
-        repository.view(id)
-    }
+
+   // fun view(id: Long) = repository.view(id) - пока не используется!
+
+    fun remove(id: Long) = repository.remove(id)
+
 }

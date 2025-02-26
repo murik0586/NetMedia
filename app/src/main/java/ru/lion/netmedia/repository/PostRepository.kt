@@ -7,7 +7,8 @@ import ru.lion.netmedia.dto.Post
 //Это в свою очередь  интерфейс
 interface PostRepository {
     fun getAll(): LiveData<List<Post>>
-    fun like(id:Long)
-    fun share(id:Long)
-    fun view(id:Long)
+    fun like(id: Long)
+    fun share(id: Long)
+    fun view(id: Long)
+    fun remove(id: Long)//По id
 }
