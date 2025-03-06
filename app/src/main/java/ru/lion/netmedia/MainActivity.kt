@@ -2,10 +2,14 @@ package ru.lion.netmedia
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import ru.lion.netmedia.adapter.OnInteractionListener
 import ru.lion.netmedia.adapter.PostAdapter
 import ru.lion.netmedia.databinding.ActivityMainBinding
+import ru.lion.netmedia.dto.Post
+import ru.lion.netmedia.utils.AndroidUtils
 
 import ru.lion.netmedia.viewModel.PostViewModel
 
@@ -19,14 +23,51 @@ class MainActivity : AppCompatActivity() {
         // Указываем LayoutManager для RecyclerView
         binding.list.layoutManager = LinearLayoutManager(this)
 
-        val adapter = PostAdapter(
-            onLikeListener = { post -> viewModel.like(post.id) },
-            onShareListener = { post -> viewModel.share(post.id) },
-            onRemoveListener = {post -> viewModel.remove(post.id)}
+        val adapter = PostAdapter(object: OnInteractionListener {
+            override fun onLike(post: Post) {
+                viewModel.like(post.id)
+            }
+
+            override fun onRemove(post: Post) {
+                viewModel.remove(post.id)
+            }
+
+            override fun onEdit(post: Post) {
+              viewModel.edit(post)
+            }
+
+            override fun onShare(post: Post) {
+               viewModel.share(post.id)
+            }
+
+        }
         )
         binding.list.adapter = adapter
         viewModel.data.observe(this) { posts ->
-            adapter.submitList(posts)
+            val newPosts = adapter.currentList.size < posts.size
+            adapter.submitList(posts) {
+                if(newPosts) binding.list.smoothScrollToPosition(0)
+            }
+        }
+        viewModel.edited.observe(this) { post ->
+            if(post.id != 0L) {
+                binding.content?.requestFocus()
+                binding.content?.setText(post.content)
+            }
+        }
+        binding.save?.setOnClickListener{
+            val text = binding.content?.text.toString()
+            if (text.isBlank()) {
+                Toast.makeText(it.context,R.string.error_empty_content,Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            viewModel.changeContent(text)
+            viewModel.save()
+
+            binding.content?.setText("")
+            binding.content?.clearFocus()
+            AndroidUtils.hideKeyboard(it)
+
         }
 
 

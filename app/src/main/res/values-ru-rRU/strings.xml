@@ -2,4 +2,8 @@
 <resources>
     <string name="app_name">НетМедия</string>
     <string name="menu_remove">удалить</string>
+    <string name="menu_edit">изменить</string>
+
+    <string name="post_text">Введите какой-то текст</string>
+    <string name="error_empty_content" >Поле ввода не может быть пустым! </string>
 </resources>

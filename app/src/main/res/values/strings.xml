@@ -4,4 +4,8 @@
     <string name="description_post_menu" translatable="false"> Post menu</string>
 
     <string name="menu_remove">remove</string>
+    <string name="menu_edit">edit</string>
+
+    <string name="post_text">Enter some text</string>
+    <string name="error_empty_content" >The input field cannot be empty </string>
 </resources>

@@ -12,15 +12,15 @@ import ru.lion.netmedia.diffUtil.PostDiffCallback
 import ru.lion.netmedia.dto.Post
 import ru.lion.netmedia.utils.shortenNumber
 
-
-typealias OnLikeListener = (post: Post) -> Unit
-typealias OnShareListener = (post: Post) -> Unit
-typealias OnRemoveListener = (post: Post) -> Unit
+interface OnInteractionListener {
+    fun onLike(post: Post)
+    fun onRemove(post: Post)
+    fun onEdit(post: Post)
+    fun onShare(post: Post)
+}
 
 class PostAdapter(
-    private val onLikeListener: OnLikeListener,
-    private val onShareListener: OnShareListener,
-    private val onRemoveListener: OnRemoveListener
+    private val onInteractionListener: OnInteractionListener
 ) : ListAdapter<Post, PostViewHolder>(PostDiffCallback()) {
 //    var list = emptyList<Post>()
 //        set(value) {
@@ -30,7 +30,7 @@ class PostAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PostViewHolder(binding, onLikeListener, onShareListener, onRemoveListener)
+        return PostViewHolder(binding, onInteractionListener)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
@@ -56,9 +56,7 @@ class PostAdapter(
 
 class PostViewHolder(
     private val binding: CardPostBinding,
-    private val onLikeListener: OnLikeListener,
-    private val onShareListener: OnShareListener,
-    private val onRemoveListener: OnRemoveListener
+    private val onInteractionListener: OnInteractionListener
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(post: Post) {
         binding.apply {
@@ -71,10 +69,10 @@ class PostViewHolder(
             like.setImageResource(if (post.likedByMe) R.drawable.p_thumb_up_24 else R.drawable.outline_thumb_up_24)
             likes.text = shortenNumber(post.likes)
             like.setOnClickListener {
-                onLikeListener(post)
+                onInteractionListener.onLike(post)
             }
             shareImage.setOnClickListener {
-                onShareListener(post)
+                onInteractionListener.onShare(post)
             }
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
@@ -82,7 +80,12 @@ class PostViewHolder(
                     setOnMenuItemClickListener { menuItems ->
                         when (menuItems.itemId) {
                             R.id.remove -> {
-                                onRemoveListener(post)
+                                onInteractionListener.onRemove(post)
+                                true
+                            }
+
+                            R.id.edit -> {
+                                onInteractionListener.onEdit(post)
                                 true
                             }
 
