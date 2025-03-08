@@ -22,11 +22,6 @@ interface OnInteractionListener {
 class PostAdapter(
     private val onInteractionListener: OnInteractionListener
 ) : ListAdapter<Post, PostViewHolder>(PostDiffCallback()) {
-//    var list = emptyList<Post>()
-//        set(value) {
-//            field = value
-//            notifyDataSetChanged()
-//        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -45,13 +40,6 @@ class PostAdapter(
             }
         } else onBindViewHolder(holder, position)
     }
-
-//    override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-//        val post = list[position]
-//        holder.bind(post)
-//    }
-
-//    override fun getItemCount(): Int = list.size
 }
 
 class PostViewHolder(

@@ -2,6 +2,7 @@ package ru.lion.netmedia
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         // Указываем LayoutManager для RecyclerView
         binding.list.layoutManager = LinearLayoutManager(this)
 
-        val adapter = PostAdapter(object: OnInteractionListener {
+        val adapter = PostAdapter(object : OnInteractionListener {
             override fun onLike(post: Post) {
                 viewModel.like(post.id)
             }
@@ -33,11 +34,14 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onEdit(post: Post) {
-              viewModel.edit(post)
+                viewModel.edit(post)
+                binding.group?.visibility = View.VISIBLE
+                //TODO завершить тут тонкости
+
             }
 
             override fun onShare(post: Post) {
-               viewModel.share(post.id)
+                viewModel.share(post.id)
             }
 
         }
@@ -46,20 +50,22 @@ class MainActivity : AppCompatActivity() {
         viewModel.data.observe(this) { posts ->
             val newPosts = adapter.currentList.size < posts.size
             adapter.submitList(posts) {
-                if(newPosts) binding.list.smoothScrollToPosition(0)
+                if (newPosts) binding.list.smoothScrollToPosition(0)
             }
         }
         viewModel.edited.observe(this) { post ->
-            if(post.id != 0L) {
+            if (post.id != 0L) {
                 binding.content?.requestFocus()
-                binding.content?.setText(post.content)
+                // binding.content?.setText(post.content)
+                binding.editContent?.setText(post.content)
+                binding.addPost?.visibility = View.GONE
             }
         }
-        binding.save?.setOnClickListener{
+        binding.save?.setOnClickListener {
             val text = binding.content?.text.toString()
             if (text.isBlank()) {
-                Toast.makeText(it.context,R.string.error_empty_content,Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+                Toast.makeText(it.context, R.string.error_empty_content, Toast.LENGTH_SHORT).show()
+                return@setOnClickListener //TODO Уведомления о том, что поле не может быть пустым не выводятся - исправить!
             }
             viewModel.changeContent(text)
             viewModel.save()
@@ -67,7 +73,17 @@ class MainActivity : AppCompatActivity() {
             binding.content?.setText("")
             binding.content?.clearFocus()
             AndroidUtils.hideKeyboard(it)
-
+            binding.addPost?.visibility = View.VISIBLE
+            binding.group?.visibility = View.GONE
+            //TODO доделать чтобы клавиатура скрывалась при смене фокуса
+        }
+        binding.cancel?.setOnClickListener {
+            binding.group?.visibility = View.GONE
+            binding.addPost?.visibility = View.VISIBLE
+        }
+        binding.addPost?.setOnClickListener {
+          binding.groupTwo?.visibility = View.VISIBLE
+            binding.addPost.visibility = View.GONE
         }
 
 

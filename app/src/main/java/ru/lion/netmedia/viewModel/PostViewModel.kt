@@ -49,7 +49,8 @@ class PostViewModel : ViewModel() {
 
     fun remove(id: Long) = repository.remove(id)
     fun edit(post: Post) {
-        edited.value = post
+       edited.value = post //Эта строчка как-то связана с тем, чтобы заполнялось поле ввода старым содержанием поста
+        //TODO поэтому надо сменить
     }
 
 }

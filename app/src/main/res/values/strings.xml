@@ -8,4 +8,6 @@
 
     <string name="post_text">Enter some text</string>
     <string name="error_empty_content" >The input field cannot be empty </string>
+
+    <string name="edit_content_title" > Edit content </string>
 </resources>
