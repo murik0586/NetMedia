@@ -18,7 +18,11 @@ const val VISIBLE = View.VISIBLE
 const val GONE = View.GONE
 
 class MainActivity : AppCompatActivity() {
-    val binding = ActivityMainBinding.inflate(layoutInflater)
+    private val binding = ActivityMainBinding.inflate(layoutInflater)
+    private var groupVisibility = binding.group?.visibility
+    private var addPostVisibility = binding.addPost?.visibility
+    private var groupTwoVisibility = binding.groupTwo?.visibility
+
     val viewModel by viewModels<PostViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
-                binding.group?.visibility = VISIBLE
+                groupVisibility = VISIBLE
                 //TODO завершить тут тонкости
 
             }
@@ -59,7 +63,7 @@ class MainActivity : AppCompatActivity() {
             if (post.id != 0L) {
                 binding.content?.requestFocus()
                 binding.editContent?.setText(post.content)
-                binding.addPost?.visibility = GONE
+                addPostVisibility = GONE
             }
         }
         binding.save?.setOnClickListener {
@@ -74,17 +78,17 @@ class MainActivity : AppCompatActivity() {
             binding.content?.setText("")
             binding.content?.clearFocus()
             AndroidUtils.hideKeyboard(it)
-            binding.addPost?.visibility = VISIBLE
-            binding.group?.visibility = GONE
+            addPostVisibility = VISIBLE
+            groupVisibility = GONE
             //TODO доделать чтобы клавиатура скрывалась при смене фокуса
         }
         binding.cancel?.setOnClickListener {
-            binding.group?.visibility = GONE
-            binding.addPost?.visibility = VISIBLE
+            groupVisibility = GONE
+            addPostVisibility = VISIBLE
         }
         binding.addPost?.setOnClickListener {
-            binding.groupTwo?.visibility = VISIBLE
-            binding.addPost.visibility = GONE
+            groupTwoVisibility = VISIBLE
+            addPostVisibility = GONE
         }
 
 
