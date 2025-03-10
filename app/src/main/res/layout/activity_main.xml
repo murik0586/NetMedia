@@ -85,7 +85,7 @@
         android:importantForAutofill="no"
         android:inputType="textMultiLine"
         android:layout_marginStart="@dimen/common_spacing"
-        android:lines="1"
+        android:lines="3"
         app:layout_constraintBottom_toTopOf="@id/toolsTop"
         app:layout_constraintEnd_toStartOf="@id/cancel"
         android:layout_marginBottom="@dimen/common_spacing"
