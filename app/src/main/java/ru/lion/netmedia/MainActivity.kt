@@ -2,6 +2,7 @@ package ru.lion.netmedia
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     val viewModel by viewModels<PostViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -42,7 +44,6 @@ class MainActivity : AppCompatActivity() {
                 viewModel.edit(post)
                 binding.group?.visibility = VISIBLE
                 binding.content?.let { KeyboardUtils.showKeyboard(this@MainActivity, it) }
-                //TODO завершить тут тонкости
 
             }
 
@@ -63,6 +64,7 @@ class MainActivity : AppCompatActivity() {
             if (post.id != 0L) {
                 binding.content?.requestFocus()
                 binding.editContent?.setText(post.content)
+                binding.editContent?.movementMethod = ScrollingMovementMethod()  // Это сделает TextView прокручиваемым
                 binding.addPost?.visibility = GONE
                 binding.content?.let { KeyboardUtils.showKeyboard(this, it) }
             }
@@ -71,7 +73,7 @@ class MainActivity : AppCompatActivity() {
             val text = binding.content?.text.toString()
             if (text.isBlank()) {
                 Toast.makeText(it.context, R.string.error_empty_content, Toast.LENGTH_SHORT).show()
-                return@setOnClickListener //TODO Уведомления о том, что поле не может быть пустым не выводятся - исправить!
+                return@setOnClickListener
             }
             viewModel.changeContent(text)
             viewModel.save()
@@ -81,7 +83,6 @@ class MainActivity : AppCompatActivity() {
             KeyboardUtils.hideKeyboard(this)
             binding.addPost?.visibility = VISIBLE
             binding.group?.visibility  = GONE
-            //TODO доделать чтобы клавиатура скрывалась при смене фокуса
         }
         binding.cancel?.setOnClickListener {
             binding.group?.visibility = GONE
