@@ -2,6 +2,7 @@ package ru.lion.netmedia
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -10,7 +11,7 @@ import ru.lion.netmedia.adapter.OnInteractionListener
 import ru.lion.netmedia.adapter.PostAdapter
 import ru.lion.netmedia.databinding.ActivityMainBinding
 import ru.lion.netmedia.dto.Post
-import ru.lion.netmedia.utils.AndroidUtils
+import ru.lion.netmedia.utils.KeyboardUtils
 
 import ru.lion.netmedia.viewModel.PostViewModel
 
@@ -18,15 +19,13 @@ const val VISIBLE = View.VISIBLE
 const val GONE = View.GONE
 
 class MainActivity : AppCompatActivity() {
-    private val binding = ActivityMainBinding.inflate(layoutInflater)
-    private var groupVisibility = binding.group?.visibility
-    private var addPostVisibility = binding.addPost?.visibility
-    private var groupTwoVisibility = binding.groupTwo?.visibility
+    private lateinit var binding: ActivityMainBinding
+
 
     val viewModel by viewModels<PostViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.list.layoutManager = LinearLayoutManager(this)
 
@@ -41,7 +40,8 @@ class MainActivity : AppCompatActivity() {
 
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
-                groupVisibility = VISIBLE
+                binding.group?.visibility = VISIBLE
+                binding.content?.let { KeyboardUtils.showKeyboard(this@MainActivity, it) }
                 //TODO завершить тут тонкости
 
             }
@@ -63,7 +63,8 @@ class MainActivity : AppCompatActivity() {
             if (post.id != 0L) {
                 binding.content?.requestFocus()
                 binding.editContent?.setText(post.content)
-                addPostVisibility = GONE
+                binding.addPost?.visibility = GONE
+                binding.content?.let { KeyboardUtils.showKeyboard(this, it) }
             }
         }
         binding.save?.setOnClickListener {
@@ -77,21 +78,28 @@ class MainActivity : AppCompatActivity() {
 
             binding.content?.setText("")
             binding.content?.clearFocus()
-            AndroidUtils.hideKeyboard(it)
-            addPostVisibility = VISIBLE
-            groupVisibility = GONE
+            KeyboardUtils.hideKeyboard(this)
+            binding.addPost?.visibility = VISIBLE
+            binding.group?.visibility  = GONE
             //TODO доделать чтобы клавиатура скрывалась при смене фокуса
         }
         binding.cancel?.setOnClickListener {
-            groupVisibility = GONE
-            addPostVisibility = VISIBLE
+            binding.group?.visibility = GONE
+            binding.addPost?.visibility = VISIBLE
+            KeyboardUtils.hideKeyboard(this)
         }
         binding.addPost?.setOnClickListener {
-            groupTwoVisibility = VISIBLE
-            addPostVisibility = GONE
+            binding.groupTwo?.visibility = VISIBLE
+            binding.addPost?.visibility = GONE
         }
 
 
     }
-
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        if (currentFocus != null) {
+            KeyboardUtils.hideKeyboard(this)
+            currentFocus?.clearFocus()
+        }
+        return super.dispatchTouchEvent(ev)
+    }
 }
