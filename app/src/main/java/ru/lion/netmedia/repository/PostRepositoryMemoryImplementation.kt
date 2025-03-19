@@ -1,5 +1,6 @@
 package ru.lion.netmedia.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.lion.netmedia.dto.Post
@@ -142,14 +143,17 @@ class PostRepositoryMemoryImplementation : PostRepository {
 
     override fun remove(id: Long) {
         posts = posts.filter { it.id != id }
+        Log.i("Delete","Удалили")
         data.value = posts
     }
 
     override fun save(post: Post) {
         posts = if (post.id == 0L) {
+            Log.i("ID", "ID равен нулю")
             listOf(post.copy(id = nextId++)) + posts
         } else {
             posts.map {
+                Log.i("ID","ID равен ${it.id}")
                 if (it.id != post.id) it else it.copy(content = post.content)
             }
         }

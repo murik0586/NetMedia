@@ -3,6 +3,7 @@ package ru.lion.netmedia
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
@@ -37,13 +38,14 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onRemove(post: Post) {
+                Log.i("DELETE", "Совершаем удаление")
                 viewModel.remove(post.id)
             }
 
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
-                binding.group?.visibility = VISIBLE
-                binding.content?.let { KeyboardUtils.showKeyboard(this@MainActivity, it) }
+                binding.group.visibility = VISIBLE
+                binding.content.let { KeyboardUtils.showKeyboard(this@MainActivity, it) }
 
             }
 
@@ -62,15 +64,15 @@ class MainActivity : AppCompatActivity() {
         }
         viewModel.edited.observe(this) { post ->
             if (post.id != 0L) {
-                binding.content?.requestFocus()
-                binding.editContent?.setText(post.content)
-                binding.editContent?.movementMethod = ScrollingMovementMethod()  // Это сделает TextView прокручиваемым
-                binding.addPost?.visibility = GONE
-                binding.content?.let { KeyboardUtils.showKeyboard(this, it) }
+                binding.content.requestFocus()
+                binding.editContent.text = post.content
+                binding.editContent.movementMethod = ScrollingMovementMethod()  // Это сделает TextView прокручиваемым
+                binding.addPost.visibility = GONE
+                binding.content.let { KeyboardUtils.showKeyboard(this, it) }
             }
         }
-        binding.save?.setOnClickListener {
-            val text = binding.content?.text.toString()
+        binding.save.setOnClickListener {
+            val text = binding.content.text.toString()
             if (text.isBlank()) {
                 Toast.makeText(it.context, R.string.error_empty_content, Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -78,20 +80,20 @@ class MainActivity : AppCompatActivity() {
             viewModel.changeContent(text)
             viewModel.save()
 
-            binding.content?.setText("")
-            binding.content?.clearFocus()
+            binding.content.setText("")
+            binding.content.clearFocus()
             KeyboardUtils.hideKeyboard(this)
-            binding.addPost?.visibility = VISIBLE
-            binding.group?.visibility  = GONE
+            binding.addPost.visibility = VISIBLE
+            binding.group.visibility  = GONE
         }
-        binding.cancel?.setOnClickListener {
-            binding.group?.visibility = GONE
-            binding.addPost?.visibility = VISIBLE
+        binding.cancel.setOnClickListener {
+            binding.group.visibility = GONE
+            binding.addPost.visibility = VISIBLE
             KeyboardUtils.hideKeyboard(this)
         }
-        binding.addPost?.setOnClickListener {
-            binding.groupTwo?.visibility = VISIBLE
-            binding.addPost?.visibility = GONE
+        binding.addPost.setOnClickListener {
+            binding.groupTwo.visibility = VISIBLE
+            binding.addPost.visibility = GONE
         }
 
 
