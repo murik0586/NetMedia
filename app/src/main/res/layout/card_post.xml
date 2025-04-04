@@ -85,13 +85,13 @@
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="@sample/posts.json/data/author" />
 
-    <ImageButton
+    <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_spacing"
         android:background="@android:color/transparent"
-        android:src="@drawable/outline_thumb_up_24"
+        android:button="@drawable/ic_like_24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/barrierTwo" />
 
