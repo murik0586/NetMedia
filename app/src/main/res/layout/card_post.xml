@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_spacing"
         app:barrierDirection="top"
-        app:constraint_referenced_ids="shared,likes,like,shareImage,viewImage,views"
+        app:constraint_referenced_ids="shared,like,shareImage,viewImage,views"
         app:layout_constraintTop_toBottomOf="@id/content" />
 
     <TextView
@@ -85,25 +85,19 @@
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="@sample/posts.json/data/author" />
 
-    <com.google.android.material.checkbox.MaterialCheckBox
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="12"
         android:layout_marginTop="@dimen/common_spacing"
         android:background="@android:color/transparent"
-        android:button="@drawable/ic_like_24dp"
+        app:icon="@drawable/ic_like_24dp"
+        style ="@style/Widget.AppTheme.LikeButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/barrierTwo" />
 
-    <TextView
-        android:id="@+id/likes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_size"
-        android:layout_marginTop="@dimen/common_spacing"
-        app:layout_constraintStart_toEndOf="@id/like"
-        app:layout_constraintTop_toBottomOf="@id/barrierTwo"
-        tools:text="@sample/posts.json/data/likes" />
+
 
     <ImageButton
         android:id="@+id/shareImage"
@@ -112,7 +106,6 @@
         android:layout_marginStart="@dimen/common_spacing"
         android:layout_marginTop="@dimen/common_spacing"
         android:background="@android:color/transparent"
-        app:layout_constraintStart_toEndOf="@id/likes"
         app:layout_constraintTop_toBottomOf="@id/barrierTwo"
         android:src ="@drawable/baseline_share_24" />
 

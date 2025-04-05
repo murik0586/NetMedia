@@ -51,11 +51,12 @@ class PostViewHolder(
             author.text = post.author
             published.text = post.published
             content.text = post.content
-            likes.text = shortenNumber(post.likes)
+            like.text = shortenNumber(post.likes)
             shared.text = shortenNumber(post.shared)
             views.text = shortenNumber(post.views)
+            like.isChecked = post.likedByMe
 //            like.setImageResource(if (post.likedByMe) R.drawable.p_thumb_up_24 else R.drawable.outline_thumb_up_24)
-            likes.text = shortenNumber(post.likes)
+            like.text = shortenNumber(post.likes)
             like.setOnClickListener {
                 onInteractionListener.onLike(post)
             }
@@ -92,7 +93,7 @@ class PostViewHolder(
             when (key) {
                 "likes" -> {
                     val likes = diffBundle.getInt("likes")
-                    binding.likes.text = shortenNumber(likes) // Сначала обновляем текст
+                    binding.like.text = shortenNumber(likes) // Сначала обновляем текст
                 }
 
                 "likedByMe" -> {
