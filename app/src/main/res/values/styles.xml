@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent ="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <item name="colorPrimary" > @color/colorPrimary</item>
-        <item name="colorPrimaryDark" > @color/colorPrimaryDark</item>
-        <item name="colorAccent" > @color/colorAccent</item>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="Widget.AppTheme.LikeCheckBox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
@@ -11,18 +12,26 @@
         <item name="android:paddingStart">@dimen/icon_button_padding</item>
 
     </style>
+
     <style name="Widget.AppTheme.LikeButton" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="android:textColor">#A4A4A4</item>
         <item name="iconTint">@color/like_checkbox_tint</item>
         <item name="android:minWidth">@dimen/icon_button_min_size</item>
         <item name="android:minHeight">@dimen/icon_button_min_size</item>
     </style>
 
-    <style name="Widget.AppTheme.addPost" parent="Widget.MaterialComponents.Button.TextButton.Icon">
-        <item name="iconTint">@color/colorPrimaryDark</item>
+    <style name="Widget.AppTheme.ShareButton" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconTint">@color/shared_tint</item>
+        <item name="android:textColor">#A4A4A4</item>
         <item name="android:minWidth">@dimen/icon_button_min_size</item>
         <item name="android:minHeight">@dimen/icon_button_min_size</item>
     </style>
 
+    <style name="Widget.AppTheme.addPost" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconTint">@color/add_post_buttom_tint</item>
+        <item name="android:minWidth">@dimen/icon_button_min_size</item>
+        <item name="android:minHeight">@dimen/icon_button_min_size</item>
+    </style>
 
 
 </resources>

@@ -52,7 +52,7 @@ class PostViewHolder(
             published.text = post.published
             content.text = post.content
             like.text = shortenNumber(post.likes)
-            shared.text = shortenNumber(post.shared)
+            shareImage.text = shortenNumber(post.shared)
             views.text = shortenNumber(post.views)
             like.isChecked = post.likedByMe
 //            like.setImageResource(if (post.likedByMe) R.drawable.p_thumb_up_24 else R.drawable.outline_thumb_up_24)
@@ -105,7 +105,7 @@ class PostViewHolder(
 
                 "shared" -> {
                     val shared = diffBundle.getInt("shared")
-                    binding.shared.text = shortenNumber(shared)
+                    binding.shareImage.text = shortenNumber(shared)
                 }
 
             }
