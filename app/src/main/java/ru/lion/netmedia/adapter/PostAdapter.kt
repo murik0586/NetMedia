@@ -96,12 +96,12 @@ class PostViewHolder(
                     binding.like.text = shortenNumber(likes) // Сначала обновляем текст
                 }
 
-                "likedByMe" -> {
-                    val likedByMe = diffBundle.getBoolean("likedByMe")
-//                    binding.like.setImageResource(
-//                        if (likedByMe) R.drawable.p_thumb_up_24 else R.drawable.outline_thumb_up_24
-//                    ) // Потом обновляем иконку
-                }
+//                "likedByMe" -> {
+//                    val likedByMe = diffBundle.getBoolean("likedByMe")
+////                    binding.like.setImageResource(
+////                        if (likedByMe) R.drawable.p_thumb_up_24 else R.drawable.outline_thumb_up_24
+////                    ) // Потом обновляем иконку
+//                }
 
                 "shared" -> {
                     val shared = diffBundle.getInt("shared")

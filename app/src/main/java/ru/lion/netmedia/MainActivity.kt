@@ -1,5 +1,6 @@
 package ru.lion.netmedia
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
@@ -50,7 +51,15 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onShare(post: Post) {
-                viewModel.share(post.id)
+                val intent = Intent().apply { //TODO разобрать написанное
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, post.content)
+                    type = "text/plain"
+                }
+
+                val shareIntent =
+                    Intent.createChooser(intent, getString(R.string.chooser_share_post))
+                startActivity(shareIntent)
             }
 
         }
@@ -66,7 +75,8 @@ class MainActivity : AppCompatActivity() {
             if (post.id != 0L) {
                 binding.content.requestFocus()
                 binding.editContent.text = post.content
-                binding.editContent.movementMethod = ScrollingMovementMethod()  // Это сделает TextView прокручиваемым
+                binding.editContent.movementMethod =
+                    ScrollingMovementMethod()  // Это сделает TextView прокручиваемым
                 binding.addPost.visibility = GONE
                 binding.content.let { KeyboardUtils.showKeyboard(this, it) }
             }
@@ -84,7 +94,7 @@ class MainActivity : AppCompatActivity() {
             binding.content.clearFocus()
             KeyboardUtils.hideKeyboard(this)
             binding.addPost.visibility = VISIBLE
-            binding.group.visibility  = GONE
+            binding.group.visibility = GONE
         }
         binding.cancel.setOnClickListener {
             binding.group.visibility = GONE
@@ -98,6 +108,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
         if (currentFocus != null) {
             KeyboardUtils.hideKeyboard(this)

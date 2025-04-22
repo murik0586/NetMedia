@@ -11,6 +11,7 @@
         android:layout_width="@dimen/avatar_size"
         android:layout_height="@dimen/avatar_size"
         android:layout_marginBottom="@dimen/common_spacing"
+        android:layout_marginTop="8dp"
         android:contentDescription="@string/description_post_author_avatar"
         android:src="@drawable/netology48dp"
         app:layout_constraintBottom_toBottomOf="@id/barrier"
@@ -32,6 +33,8 @@
         app:icon="@drawable/more_ic"
         style="@style/Widget.AppTheme.menuPost"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@id/author"
         app:layout_constraintTop_toTopOf="parent"
        />
 
@@ -43,7 +46,7 @@
         android:layout_marginEnd="@dimen/common_spacing"
         android:layout_marginBottom="@dimen/common_spacing"
         app:layout_constraintBottom_toBottomOf="@id/barrier"
-        app:layout_constraintEnd_toStartOf="@id/menu"
+        app:layout_constraintEnd_toEndOf="@id/author"
         app:layout_constraintStart_toEndOf="@id/avatar"
         app:layout_constraintTop_toBottomOf="@id/author"
         tools:text="@sample/posts.json/data/published" />
@@ -55,6 +58,8 @@
         android:layout_marginTop="@dimen/common_spacing"
         android:layout_marginBottom="@dimen/common_spacing"
         android:autoLink="web"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
         app:layout_constraintBottom_toTopOf="@id/barrierTwo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,6 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/common_spacing"
         android:layout_marginEnd="@dimen/common_spacing"
+        android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:lines="1"
         app:layout_constraintEnd_toStartOf="@id/menu"
@@ -110,7 +116,6 @@
         android:id="@+id/viewImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_marginEnd="@dimen/spacing_size"
         app:layout_constraintEnd_toStartOf="@id/views"
         app:layout_constraintTop_toBottomOf="@id/barrierTwo"
@@ -122,8 +127,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_size"
-
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="@id/content"
         app:layout_constraintBottom_toBottomOf="@id/viewImage"
         app:layout_constraintTop_toTopOf="@id/viewImage"
         tools:text="@sample/posts.json/data/views" />
