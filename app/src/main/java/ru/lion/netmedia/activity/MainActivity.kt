@@ -1,4 +1,4 @@
-package ru.lion.netmedia
+package ru.lion.netmedia.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import ru.lion.netmedia.R
 import ru.lion.netmedia.adapter.OnInteractionListener
 import ru.lion.netmedia.adapter.PostAdapter
 import ru.lion.netmedia.databinding.ActivityMainBinding
