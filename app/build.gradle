@@ -54,4 +54,5 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$recyclerView_version"
     //Material desing v2
     implementation "com.google.android.material:material: $marerial_desing_version"
+    implementation "androidx.fragment:fragment-ktx:1.8.6"
 }

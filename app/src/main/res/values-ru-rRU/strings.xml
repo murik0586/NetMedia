@@ -6,7 +6,7 @@
 
     <string name="post_text">Введите какой-то текст</string>
     <string name="error_empty_content" >Поле ввода не может быть пустым! </string>
-
+    <string name="add_post">Добавить пост</string>
     <string name="edit_content_title" > Изменяемый контент </string>
     <string name="chooser_share_post">Поделиться постом</string>
 </resources>

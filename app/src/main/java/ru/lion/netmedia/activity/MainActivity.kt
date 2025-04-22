@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.lion.netmedia.R
@@ -78,9 +79,18 @@ class MainActivity : AppCompatActivity() {
                 binding.editContent.text = post.content
                 binding.editContent.movementMethod =
                     ScrollingMovementMethod()  // Это сделает TextView прокручиваемым
-                binding.addPost.visibility = GONE
+                binding.fab?.visibility = GONE
                 binding.content.let { KeyboardUtils.showKeyboard(this, it) }
             }
+        }
+
+        val newPostLauncher = registerForActivityResult(NewPostResultContract()) {
+            result -> result ?: return@registerForActivityResult
+            viewModel.changeContent(result)
+            viewModel.save()
+        }
+        binding.fab?.setOnClickListener{
+            newPostLauncher.launch()
         }
         binding.save.setOnClickListener {
             val text = binding.content.text.toString()
@@ -94,17 +104,17 @@ class MainActivity : AppCompatActivity() {
             binding.content.setText("")
             binding.content.clearFocus()
             KeyboardUtils.hideKeyboard(this)
-            binding.addPost.visibility = VISIBLE
+            binding.fab?.visibility = VISIBLE
             binding.group.visibility = GONE
         }
         binding.cancel.setOnClickListener {
             binding.group.visibility = GONE
-            binding.addPost.visibility = VISIBLE
+            binding.fab?.visibility = VISIBLE
             KeyboardUtils.hideKeyboard(this)
         }
-        binding.addPost.setOnClickListener {
+        binding.fab?.setOnClickListener {
             binding.groupTwo.visibility = VISIBLE
-            binding.addPost.visibility = GONE
+            binding.fab?.visibility = GONE
         }
 
 

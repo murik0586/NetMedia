@@ -8,7 +8,7 @@
 
     <string name="post_text">Enter some text</string>
     <string name="error_empty_content">The input field cannot be empty </string>
-
+    <string name="add_post">Add post</string>
     <string name="edit_content_title"> Edit content </string>
     <string name="chooser_share_post">Share post\n</string>
 </resources>
