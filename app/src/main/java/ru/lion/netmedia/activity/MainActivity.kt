@@ -57,15 +57,14 @@ class MainActivity : AppCompatActivity() {
                     action = Intent.ACTION_SEND
                     putExtra(Intent.EXTRA_TEXT, post.content)
                     type = "text/plain"
+                    viewModel.share(post.id)
                 }
 
                 val shareIntent =
                     Intent.createChooser(intent, getString(R.string.chooser_share_post))
                 startActivity(shareIntent)
             }
-
-        }
-        )
+        })
         binding.list.adapter = adapter
         viewModel.data.observe(this) { posts ->
             val newPosts = adapter.currentList.size < posts.size
@@ -84,8 +83,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val newPostLauncher = registerForActivityResult(NewPostResultContract()) {
-            result -> result ?: return@registerForActivityResult
+        val newPostLauncher = registerForActivityResult(NewPostResultContract()) { result ->
+            result ?: return@registerForActivityResult
             viewModel.changeContent(result)
             viewModel.save()
         }
