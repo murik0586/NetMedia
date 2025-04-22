@@ -78,7 +78,6 @@ class MainActivity : AppCompatActivity() {
                 binding.editContent.text = post.content
                 binding.editContent.movementMethod =
                     ScrollingMovementMethod()  // Это сделает TextView прокручиваемым
-                binding.fab?.visibility = GONE
                 binding.content.let { KeyboardUtils.showKeyboard(this, it) }
             }
         }
@@ -88,7 +87,7 @@ class MainActivity : AppCompatActivity() {
             viewModel.changeContent(result)
             viewModel.save()
         }
-        binding.fab?.setOnClickListener{
+        binding.fab.setOnClickListener{
             newPostLauncher.launch()
         }
         binding.save.setOnClickListener {
@@ -103,17 +102,11 @@ class MainActivity : AppCompatActivity() {
             binding.content.setText("")
             binding.content.clearFocus()
             KeyboardUtils.hideKeyboard(this)
-            binding.fab?.visibility = VISIBLE
             binding.group.visibility = GONE
         }
         binding.cancel.setOnClickListener {
             binding.group.visibility = GONE
-            binding.fab?.visibility = VISIBLE
             KeyboardUtils.hideKeyboard(this)
-        }
-        binding.fab?.setOnClickListener {
-            binding.groupTwo.visibility = VISIBLE
-            binding.fab?.visibility = GONE
         }
 
 
