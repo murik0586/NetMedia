@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="description_cancel">назад</string>
+
     <string name="app_name">НетМедия</string>
     <string name="menu_remove">удалить</string>
     <string name="menu_edit">изменить</string>

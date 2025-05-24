@@ -2,7 +2,7 @@
     <string name="app_name">NetMedia</string>
     <string name="description_post_author_avatar" translatable="false"> Post author avatar</string>
     <string name="description_post_menu" translatable="false"> Post menu</string>
-
+    <string name="description_cancel">cancel</string>
     <string name="menu_remove">remove</string>
     <string name="menu_edit">edit</string>
 
@@ -11,4 +11,5 @@
     <string name="add_post">Add post</string>
     <string name="edit_content_title"> Edit content </string>
     <string name="chooser_share_post">Share post\n</string>
+
 </resources>

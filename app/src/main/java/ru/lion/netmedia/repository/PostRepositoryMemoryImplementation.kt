@@ -150,7 +150,7 @@ class PostRepositoryMemoryImplementation : PostRepository {
     override fun save(post: Post) {
         posts = if (post.id == 0L) {
             Log.i("ID", "ID равен нулю")
-            listOf(post.copy(id = nextId++)) + posts
+            listOf(post.copy(id = ++nextId)) + posts
         } else {
             posts.map {
                 Log.i("ID","ID равен ${it.id}")

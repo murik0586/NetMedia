@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.MotionEvent
-import android.view.View
-import android.widget.Toast
 import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,12 +18,14 @@ import ru.lion.netmedia.utils.KeyboardUtils
 
 import ru.lion.netmedia.viewModel.PostViewModel
 
-const val VISIBLE = View.VISIBLE
-const val GONE = View.GONE
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-
+    private val editPostLauncher = registerForActivityResult(EditPostResultContract()) { result ->
+        result ?: return@registerForActivityResult
+        viewModel.changeContent(result)
+        viewModel.save()
+    }
 
     val viewModel by viewModels<PostViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +34,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.list.layoutManager = LinearLayoutManager(this)
+
+
 
         val adapter = PostAdapter(object : OnInteractionListener {
             override fun onLike(post: Post) {
@@ -47,8 +49,13 @@ class MainActivity : AppCompatActivity() {
 
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
-                binding.group.visibility = VISIBLE
-                binding.content.let { KeyboardUtils.showKeyboard(this@MainActivity, it) }
+                intent.putExtra(Intent.EXTRA_TEXT,post.content)
+                editPostLauncher.launch(post.content)
+
+
+//                binding.group.visibility = VISIBLE
+//                binding.fab.visibility = GONE
+//                binding.content.let { KeyboardUtils.showKeyboard(this@MainActivity, it) }
 
             }
 
@@ -90,25 +97,6 @@ class MainActivity : AppCompatActivity() {
         binding.fab.setOnClickListener{
             newPostLauncher.launch()
         }
-        binding.save.setOnClickListener {
-            val text = binding.content.text.toString()
-            if (text.isBlank()) {
-                Toast.makeText(it.context, R.string.error_empty_content, Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            viewModel.changeContent(text)
-            viewModel.save()
-
-            binding.content.setText("")
-            binding.content.clearFocus()
-            KeyboardUtils.hideKeyboard(this)
-            binding.group.visibility = GONE
-        }
-        binding.cancel.setOnClickListener {
-            binding.group.visibility = GONE
-            KeyboardUtils.hideKeyboard(this)
-        }
-
 
     }
 

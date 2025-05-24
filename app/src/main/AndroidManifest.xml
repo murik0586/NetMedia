@@ -37,7 +37,9 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize|stateVisible"
             />
+ <activity android:name=".activity.EditPostActivity"/>
 
     </application>
+
 
 </manifest>
